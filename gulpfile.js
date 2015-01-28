@@ -13,17 +13,8 @@ var paths = {
 };
 
 gulp.task('jshint', function () {
-	var options = {
-		expr: true,
-		globals: {
-			before: false,
-			after: false,
-			describe: false,
-			it: false
-		}
-	};
 	return gulp.src([paths.scripts, paths.tests, 'gulpfile.js'])
-		.pipe(jshint(options))
+		.pipe(jshint())
 		.pipe(jshint.reporter('jshint-stylish'))
 		.pipe(jshint.reporter('fail'));
 });

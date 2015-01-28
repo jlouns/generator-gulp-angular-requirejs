@@ -1,3 +1,4 @@
+/*global before, after, it */
 'use strict';
 
 var path = require('path');
