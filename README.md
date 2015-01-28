@@ -41,4 +41,4 @@ Run `gulp` for building, `gulp serve` for preview, and `gulp test` for tests.
 
 ## License
 
-MIT
+MIT © [Jonathan Lounsbury](https://github.com/jlouns)
