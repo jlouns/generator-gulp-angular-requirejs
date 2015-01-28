@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html <% if (includeModernizr) { %> class="no-js"<% } %> lang="en">
 	<head>
 		<meta charset="utf-8">
 		<title><%= appname %></title>
@@ -11,6 +11,11 @@
 		<!-- build:css styles/main.css -->
 		<link rel="stylesheet" href="styles/main.css">
 		<!-- endbuild -->
+
+		<% if (includeModernizr) { %>
+		<!-- build:js scripts/lib.js -->
+		<script src="lib/bower/modernizr/modernizr.js"></script>
+		<!-- endbuild --><% } %>
 	</head>
 	<body>
 		<!--[if lt IE 10]>

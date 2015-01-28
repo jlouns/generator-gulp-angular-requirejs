@@ -11,6 +11,12 @@ Example:
         gulpfile.js: Configuration for the task runner.
         bower.json: Front-end packages installed by bower.
         package.json: Development packages installed by npm.
+        .bowerrc: Bower config
+        .editorconfig: Editor config settings
+        .gitignore: Git ignore file
+        .gitattributes: Git attributes
+        .jshintrc: jshint config
+        .travis.yml: Travis-CI config
 
         app/: Your application files.
         test/: Unit tests for your application.

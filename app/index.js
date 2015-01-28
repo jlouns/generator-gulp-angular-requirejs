@@ -16,7 +16,7 @@ module.exports = yeoman.generators.Base.extend({
 	},
 
 	prompting: function () {
-		//var done = this.async();
+		var done = this.async();
 
 		if (!this.options['skip-welcome-message']) {
 			this.log(yosay());
@@ -28,18 +28,17 @@ module.exports = yeoman.generators.Base.extend({
 			);
 		}
 
-		/*var prompts = [{
-		 type: 'confirm',
-		 name: 'someOption',
-		 message: 'Would you like to enable this option?',
-		 default: true
+		var prompts = [{
+			type: 'confirm',
+			name: 'Modernizr',
+			message: 'Would you like to include Modernizr?',
+			default: false
 		 }];
 
-		 this.prompt(prompts, function (props) {
-		 this.someOption = props.someOption;
-
-		 done();
-		 }.bind(this));*/
+		this.prompt(prompts, function (props) {
+			this.includeModernizr = props.Modernizr;
+			done();
+		}.bind(this));
 	},
 
 	writing: {

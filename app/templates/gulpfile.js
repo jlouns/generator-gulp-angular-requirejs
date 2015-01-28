@@ -8,7 +8,6 @@ var minimist = require('minimist');
 
 // load plugins
 var autoprefixer = require('gulp-autoprefixer'),
-	cache = require('gulp-cache'),
 	del = require('del'),
 	flatten = require('gulp-flatten'),
 	filter = require('gulp-filter'),
@@ -126,6 +125,9 @@ gulp.task('html', ['styles'], function () {
 		})
 		.pipe(uglify);
 
+	var libChannel = lazypipe()
+		.pipe(uglify);
+
 	var cssChannel = lazypipe()
 		.pipe(minifyCss)
 		.pipe(replace, '../lib/bower/bootstrap/fonts/','../fonts/');
@@ -136,6 +138,7 @@ gulp.task('html', ['styles'], function () {
 	return gulp.src('app/*.html')
 		.pipe(assets)
 		.pipe(gulpif('**/scripts/main.js', jsChannel()))
+	.pipe(gulpif('**/scripts/lib.js', libChannel()))
 		.pipe(gulpif('**/*.css', cssChannel()))
 		.pipe(rev())
 		.pipe(assets.restore())
@@ -147,10 +150,10 @@ gulp.task('html', ['styles'], function () {
 
 gulp.task('images', function () {
 	return gulp.src('app/images/**/*')
-		.pipe(cache(imagemin({
+		.pipe(imagemin({
 			progressive: true,
 			interlaced: true
-		})))
+		}))
 		.pipe(gulp.dest('dist/images'));
 });
 
