@@ -93,8 +93,16 @@ module.exports = yeoman.generators.Base.extend({
 	},
 
 	install: function () {
+		var skipInstall = this.options['skip-install'];
+
 		this.installDependencies({
-			skipInstall: this.options['skip-install']
+			bower: false,
+			skipInstall: skipInstall,
+			callback: function() {
+				if(!skipInstall) {
+					this.spawnCommand('npm', ['run', 'update-webdriver']);
+				}
+			}.bind(this)
 		});
 	}
 });

@@ -56,13 +56,13 @@
     "prestart": "npm install",
     "start": "gulp serve",
 
-    "pretest": "npm install && npm run update-webdriver",
+    "pretest": "npm run update-webdriver",
     "test": "gulp test",
 
     "preupdate-webdriver": "npm install",
     "update-webdriver": "webdriver-manager update",
 
-    "preci": "npm install && npm run update-webdriver",
+    "preci": "npm run update-webdriver",
     "ci": "gulp ci",
     "postci": "rm -rf node_modules app/lib/bower .tmp"
   }

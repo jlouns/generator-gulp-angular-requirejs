@@ -9,7 +9,7 @@ var gulp = require('gulp'),
 
 var paths = {
 	scripts: 'app/index.js',
-	tests: 'test/*.js'
+	tests: 'test/**/*-spec.js'
 };
 
 gulp.task('jshint', function () {
