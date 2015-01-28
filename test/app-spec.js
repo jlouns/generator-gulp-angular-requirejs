@@ -8,6 +8,8 @@ var os = require('os');
 describe('gulp-angular-requirejs:app', function () {
 	var appname = 'testapp';
 
+	var basedir = process.cwd();
+
 	before(function (done) {
 		helpers.run(path.join(__dirname, '../app'))
 			.inDir(path.join(os.tmpdir(), appname))
@@ -16,6 +18,10 @@ describe('gulp-angular-requirejs:app', function () {
 			 someOption: true
 			 })*/
 			.on('end', done);
+	});
+
+	after(function() {
+		process.chdir(basedir);
 	});
 
 	it('creates main files', function () {

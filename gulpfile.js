@@ -17,6 +17,7 @@ gulp.task('jshint', function () {
 		expr: true,
 		globals: {
 			before: false,
+			after: false,
 			describe: false,
 			it: false
 		}
