@@ -18,7 +18,7 @@ describe('gulp-angular-requirejs:app', function () {
 				.inDir(path.join(os.tmpdir(), appdir))
 				.withOptions({'skip-install': true})
 				.withPrompts({
-					Modernizr: includeModernizr
+					includeModernizr: includeModernizr
 				})
 				.on('end', done);
 		});
@@ -29,6 +29,7 @@ describe('gulp-angular-requirejs:app', function () {
 
 		it('creates main files', function() {
 			assert.file([
+				'README.md',
 				'gulpfile.js',
 				'package.json',
 				'bower.json',
@@ -71,6 +72,11 @@ describe('gulp-angular-requirejs:app', function () {
 				'test/unit/directives/app-title-spec.js',
 				'test/unit/app-spec.js'
 			]);
+		});
+
+		it('formats readme', function() {
+			assert.fileContent('README.md', new RegExp(packagename));
+			assert.fileContent('README.md', /someuser/);
 		});
 
 		it('substitutes appname and packagename', function() {

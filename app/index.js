@@ -28,20 +28,29 @@ module.exports = yeoman.generators.Base.extend({
 			);
 		}
 
-		var prompts = [{
+		var prompts = [ {
 			type: 'confirm',
-			name: 'Modernizr',
+			name: 'includeModernizr',
 			message: 'Would you like to include Modernizr?',
 			default: false
-		 }];
+		 }, {
+			name: 'githubUser',
+			message: 'Would you mind telling me the username or organization on GitHub that this app will reside in?',
+			default: 'someuser'
+		} ];
 
 		this.prompt(prompts, function (props) {
-			this.includeModernizr = props.Modernizr;
+			this.includeModernizr = props.includeModernizr;
+			this.githubUser = props.githubUser;
 			done();
 		}.bind(this));
 	},
 
 	writing: {
+		readme: function() {
+			this.template('README.md');
+		},
+
 		gulpfile: function() {
 			this.template('gulpfile.js');
 		},

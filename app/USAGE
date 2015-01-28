@@ -1,13 +1,11 @@
 Description:
     Creates a new web app with angular, gulp, and requirejs.
 
-Options:
-    Modernizr: Include Modernizr
-
 Example:
     yo gulp-angular-requirejs
 
     This will create:
+    	README.md: App readme
         gulpfile.js: Configuration for the task runner.
         bower.json: Front-end packages installed by bower.
         package.json: Development packages installed by npm.
