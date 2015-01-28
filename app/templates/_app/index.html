@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title><%= appname %></title>
+		<meta name="description" content="">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="shortcut icon" href="../app/favicon.ico">
+
+		<!-- build:css styles/main.css -->
+		<link rel="stylesheet" href="styles/main.css">
+		<!-- endbuild -->
+	</head>
+	<body>
+		<!--[if lt IE 10]>
+		<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+		<![endif]-->
+		<div class="loading-indicator"></div>
+		<div class="page">
+			<app-title></app-title>
+		</div>
+		<footer>
+			<div class="container">
+				&copy; 2015 <a href="#"><%= appname %></a>
+			</div>
+		</footer>
+		<!-- build:js scripts/main.js -->
+		<script src="lib/bower/requirejs/require.js"></script>
+		<script src="scripts/config/dev-config.js"></script>
+		<script src="scripts/main.js"></script>
+		<!-- endbuild -->
+	</body>
+</html>

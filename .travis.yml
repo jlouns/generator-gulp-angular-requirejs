@@ -1,0 +1,10 @@
+language: node_js
+
+node_js:
+  - '0.10'
+
+before_install:
+  - currentfolder=${PWD##*/}
+  - if [ "$currentfolder" != 'generator-gulp-angular-requirejs' ]; then cd .. && eval "mv $currentfolder generator-gulp-angular-requirejs" && cd generator-gulp-angular-requirejs; fi
+
+script: npm run ci

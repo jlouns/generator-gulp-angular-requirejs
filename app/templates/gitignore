@@ -1,0 +1,12 @@
+# Dependencies
+node_modules
+app/lib/bower
+
+# Build files
+dist
+.tmp
+coverage
+
+# IntelliJ project files
+*.iml
+.idea

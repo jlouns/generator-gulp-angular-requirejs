@@ -1,0 +1,15 @@
+{
+	"name": "<%= appname %>",
+	"version": "0.0.0",
+	"dependencies": {
+		"jquery": "~2.1.0",
+		"requirejs": "~2.1.15",
+		"almond": "~0.3.0",
+		"lodash": "~3.0.0",
+		"bootstrap": "~3.3.1",
+		"angular": "~1.4.0",
+		"requirejs-text": "~2.0.13",
+		"angular-mocks": "~1.4.0"
+	}
+}
+
