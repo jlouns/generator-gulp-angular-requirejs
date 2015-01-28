@@ -1,6 +1,6 @@
 {
   "name": "generator-gulp-angular-requirejs",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Yeoman generator for AngularJS webapps incorporating requirejs and gulp",
   "license": "MIT",
   "main": "app/index.js",
