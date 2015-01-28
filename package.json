@@ -20,8 +20,9 @@
     "yeoman-generator"
   ],
   "dependencies": {
-    "yeoman-generator": "^0.18.7",
     "chalk": "^0.5.1",
+    "underscore.string": "^3.0.2",
+    "yeoman-generator": "^0.18.7",
     "yosay": "^1.0.2"
   },
   "devDependencies": {

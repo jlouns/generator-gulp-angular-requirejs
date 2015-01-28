@@ -6,13 +6,16 @@ var helpers = require('yeoman-generator').test;
 var os = require('os');
 
 describe('gulp-angular-requirejs:app', function () {
-	var appname = 'testapp';
+	var appdir = 'test-app',
+		appname = 'test app',
+		packagename = 'test-app';
+
 
 	var basedir = process.cwd();
 
 	before(function (done) {
 		helpers.run(path.join(__dirname, '../app'))
-			.inDir(path.join(os.tmpdir(), appname))
+			.inDir(path.join(os.tmpdir(), appdir))
 			.withOptions({ 'skip-install': true })
 			/*.withPrompts({
 			 someOption: true
@@ -71,8 +74,7 @@ describe('gulp-angular-requirejs:app', function () {
 	});
 
 	it('substitutes appname', function () {
-		var regex = new RegExp(appname);
-		var checkFiles = function(files) {
+		var checkFiles = function(files, regex) {
 			var filePairs = [];
 			files.forEach(function(file) {
 				filePairs.push([file, regex]);
@@ -82,12 +84,15 @@ describe('gulp-angular-requirejs:app', function () {
 
 		checkFiles([
 			'bower.json',
-			'package.json',
+			'package.json'
+		], new RegExp(packagename));
+
+		checkFiles([
 			'app/partials/title.html',
 			'app/index.html',
 			'test/e2e/main-spec.js',
 			'test/unit/directives/app-title-spec.js',
 			'test/unit/app-spec.js'
-		]);
+		], new RegExp(appname));
 	});
 });

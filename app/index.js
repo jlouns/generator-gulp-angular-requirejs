@@ -2,6 +2,7 @@
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var yosay = require('yosay');
+var slugify = require('underscore.string/slugify');
 
 module.exports = yeoman.generators.Base.extend({
 	initializing: function () {
@@ -10,15 +11,22 @@ module.exports = yeoman.generators.Base.extend({
 		this.templateAppResource = function(path) {
 			this.template(path, path.substring(1));
 		}.bind(this);
+
+		this.packagename = slugify(this.appname);
 	},
 
 	prompting: function () {
 		//var done = this.async();
 
-		// Have Yeoman greet the user.
-		this.log(yosay(
-			'Welcome to the tiptop' + chalk.red('Gulp-Angular-RequireJS') + ' generator!'
-		));
+		if (!this.options['skip-welcome-message']) {
+			this.log(yosay());
+			this.log(
+				chalk.magenta(
+					'Out of the box I include Gulp, AngularJS, RequireJS, LESS, and Bootstrap.' +
+					'\n'
+				)
+			);
+		}
 
 		/*var prompts = [{
 		 type: 'confirm',
