@@ -1,6 +1,7 @@
 # generator-gulp-angular-requirejs
 [![Build Status](https://secure.travis-ci.org/jlouns/generator-gulp-angular-requirejs.png?branch=master)](https://travis-ci.org/jlouns/generator-gulp-angular-requirejs)
 [![Coverage Status](https://coveralls.io/repos/jlouns/generator-gulp-angular-requirejs/badge.svg)](https://coveralls.io/r/jlouns/generator-gulp-angular-requirejs)
+[![Dependency Status](https://david-dm.org/jlouns/generator-gulp-angular-requirejs.svg)](https://david-dm.org/jlouns/generator-gulp-angular-requirejs)
 
 > [Yeoman](http://yeoman.io) generator for AngularJS webapps incorporating requirejs and gulp
 
