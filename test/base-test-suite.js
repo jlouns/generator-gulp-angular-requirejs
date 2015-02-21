@@ -47,6 +47,7 @@ module.exports = function(includeModernizr) {
 			'app/images/loader.gif',
 			'app/scripts/config/dev-config.js',
 			'app/scripts/config/prod-config.js',
+			'app/scripts/directives/directives-module.js',
 			'app/scripts/directives/app-title.js',
 			'app/scripts/logging/console-logger.js',
 			'app/scripts/util/set-loading.js',
