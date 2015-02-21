@@ -1,14 +1,15 @@
 define([
 	'angular',
-	'directives/app-title'
+	'directives/directives-module'
 ], function(
 	angular,
-	appTitle
+	directivesModule
 ) {
 	'use strict';
-	var app = angular.module('<%= appname %>', []);
 
-	app.directive('appTitle', appTitle);
+	var app = angular.module('<%= appname %>', [
+		directivesModule.name
+	]);
 
 	return app;
 });

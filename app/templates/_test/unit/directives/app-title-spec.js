@@ -1,15 +1,15 @@
 define([
-	'app',
+	'directives/directives-module',
 	'text!partials/title.html'
 ],function (
-	app,
+	directivesModule,
 	template
 ) {
 	'use strict';
 	describe('Title directive', function() {
 		var element, scope;
 
-		beforeEach(module(app.name));
+		beforeEach(module(directivesModule.name));
 
 		beforeEach(inject(function($rootScope, $compile) {
 			scope = $rootScope.$new();

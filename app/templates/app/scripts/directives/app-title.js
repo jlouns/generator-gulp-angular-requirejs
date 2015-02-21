@@ -14,5 +14,7 @@ define([
 		};
 	};
 
+	directive.id = 'appTitle';
+
 	return directive;
 });
