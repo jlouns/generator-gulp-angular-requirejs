@@ -5,15 +5,11 @@ html, body {
 .page {
 	position: relative;
 	min-height: 100%;
-}
 
-.page:after {
-	content: '';
-	display: block;
-	padding-bottom: @footer-height;
-	visibility: hidden;
-}
-
-.title {
-	color: @brand-primary;
+	&:after {
+		content: '';
+		display: block;
+		padding-bottom: @footer-height;
+		visibility: hidden;
+	}
 }
