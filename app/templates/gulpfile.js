@@ -138,7 +138,7 @@ gulp.task('html', ['styles'], function () {
 	return gulp.src('app/*.html')
 		.pipe(assets)
 		.pipe(gulpif('**/scripts/main.js', jsChannel()))
-	.pipe(gulpif('**/scripts/lib.js', libChannel()))
+		.pipe(gulpif('**/lib/*.js', libChannel()))
 		.pipe(gulpif('**/*.css', cssChannel()))
 		.pipe(rev())
 		.pipe(assets.restore())
