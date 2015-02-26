@@ -1,6 +1,6 @@
 define([
 	'app',
-	'text!partials/title.html'
+	'text!partials/directives/title.html'
 ], function(
 	app,
 	template

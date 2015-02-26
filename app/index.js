@@ -8,7 +8,7 @@ module.exports = yeoman.generators.Base.extend({
 	initializing: function () {
 		this.pkg = require('../package.json');
 
-		this.templateAppResource = function(path) {
+		this.templateAppResource = function templateAppResource(path) {
 			this.template(path, path.substring(1));
 		}.bind(this);
 
@@ -80,12 +80,13 @@ module.exports = yeoman.generators.Base.extend({
 
 		app: function() {
 			this.directory('app');
-			this.templateAppResource('_app/partials/title.html');
+			this.templateAppResource('_app/partials/directives/title.html');
 			this.templateAppResource('_app/index.html');
 		},
 
 		test: function() {
 			this.directory('test');
+			this.templateAppResource('_test/e2e/demo-spec.js');
 			this.templateAppResource('_test/e2e/main-spec.js');
 			this.templateAppResource('_test/unit/directives/app-title-spec.js');
 			this.templateAppResource('_test/unit/app-spec.js');

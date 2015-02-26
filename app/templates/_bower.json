@@ -4,10 +4,10 @@
   "dependencies": {
     "almond": "~0.3.0",
     "angular": "~1.4.0",
+    "angular-route": "~1.4.0",
     "angular-mocks": "~1.4.0",
-    "bootstrap": "~3.3.1",
-    "jquery": "~2.1.0",
-    "lodash": "~3.0.0",<% if (includeModernizr) { %>
+    "bootstrap": "~3.3.0",
+    "lodash": "~3.3.0",<% if (includeModernizr) { %>
     "modernizr": "~2.8.3", <% } %>
     "requirejs": "~2.1.16",
     "requirejs-text": "~2.0.13"

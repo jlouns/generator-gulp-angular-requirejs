@@ -273,6 +273,7 @@ gulp.task('watch', function () {
 	// watch for changes
 	gulp.watch([
 		'app/*.html',
+		'app/partials/**/*.html',
 		'.tmp/styles/**/*.css',
 		'app/scripts/**/*.js',
 		'app/images/**/*'
@@ -286,10 +287,10 @@ gulp.task('build', ['jshint', 'html', 'images', 'fonts', 'extras'], function () 
 	return gulp.src('dist/**/*').pipe(size({title: 'build', gzip: true}));
 });
 
-gulp.task('ci', ['test'], function () {
-	gulp.start('build');
+gulp.task('ci', function (done) {
+	runSequence('test', 'build', done);
 });
 
-gulp.task('default', ['clean'], function () {
-	gulp.start('build');
+gulp.task('default', function (done) {
+	runSequence('clean', 'build', done);
 });

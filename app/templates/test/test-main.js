@@ -20,11 +20,11 @@ require.config({
 
 	paths: {
 		'angular': '../lib/bower/angular/angular',
-		'jquery': '../lib/bower/jquery/dist/jquery',
-		'bootstrap': '../lib/bower/bootstrap/dist/js/bootstrap',
-		'underscore': '../lib/bower/lodash/dist/lodash',
+		'angular.route': '../lib/bower/angular-route/angular-route',
 
-		'log': './logging/console-logger',
+		'underscore': '../lib/bower/lodash/lodash',
+
+		'log': 'logging/console-logger',
 
 		'text': '../lib/bower/requirejs-text/text',
 
@@ -36,15 +36,14 @@ require.config({
 	},
 
 	shim: {
-		'angular' : {
-			deps: ['jquery'],
+		'angular': {
 			exports: 'angular'
 		},
-		'angular.mocks' : {
+		'angular.route': ['angular'],
+		'angular.mocks': {
 			deps: ['angular'],
 			exports: 'angular.mock'
-		},
-		'bootstrap' : ['jquery']
+		}
 	},
 
 	// dynamically load all test files

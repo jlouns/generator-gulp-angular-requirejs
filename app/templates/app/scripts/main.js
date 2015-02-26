@@ -1,16 +1,11 @@
 require([
 	'angular',
-	'app',
-	'util/set-loading',
-	'bootstrap'
+	'app'
 ], function(
 	angular,
-	app,
-	setLoading
+	app
 ) {
 	'use strict';
 
 	angular.bootstrap(document, [app.name]);
-
-	setLoading(false);
 });
