@@ -1,10 +1,4 @@
-define([
-	'directives/directives-module',
-	'text!partials/title.html'
-],function (
-	directivesModule,
-	template
-) {
+define(['directives/directives-module'],function (directivesModule) {
 	'use strict';
 	describe('Title directive', function() {
 		var element, scope;
@@ -22,7 +16,6 @@ define([
 
 		it('should create a title heading', function() {
 			expect(element.text().trim()).toBe('<%= appname %>');
-			expect(element.html()).toBe(template);
 		});
 	});
 });
