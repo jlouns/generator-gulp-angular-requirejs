@@ -14,6 +14,7 @@ var autoprefixer = require('gulp-autoprefixer'),
 	gulpif = require('gulp-if'),
 	imagemin = require('gulp-imagemin'),
 	minifyHtml = require('gulp-minify-html'),
+	jscs = require('gulp-jscs'),
 	jshint = require('gulp-jshint'),
 	less = require('gulp-less'),
 	livereload = require('gulp-livereload'),
@@ -41,15 +42,15 @@ var options = minimist(process.argv.slice(2), {
 
 // connect server utils
 var connectServerPort = 9000,
-	connectServerAddress = 'http://localhost:'+connectServerPort,
+	connectServerAddress = 'http://localhost:' + connectServerPort,
 	runConnectServer = function(dirs, indexes) {
 		indexes = indexes || [];
 
-		if(typeof dirs === 'string') {
+		if (typeof dirs === 'string') {
 			dirs = [dirs];
 		}
 
-		if(typeof indexes === 'string') {
+		if (typeof indexes === 'string') {
 			indexes = [indexes];
 		}
 
@@ -57,7 +58,7 @@ var connectServerPort = 9000,
 
 		var app = connect();
 
-		if(livereload.server) {
+		if (livereload.server) {
 			app.use(require('connect-livereload')({ port: 35729 }));
 		}
 
@@ -66,7 +67,7 @@ var connectServerPort = 9000,
 			app.use(serveStatic(dir));
 		});
 
-		if(indexes.length > 0) {
+		if (indexes.length > 0) {
 			var serveIndex = require('serve-index');
 			indexes.forEach(function(index) {
 				app.use(serveIndex(index));
@@ -87,7 +88,8 @@ var runJshint = function(src, options) {
 	return gulp.src(src)
 		.pipe(jshint(options))
 		.pipe(jshint.reporter('jshint-stylish'))
-		.pipe(jshint.reporter('fail'));
+		.pipe(jshint.reporter('fail'))
+		.pipe(jscs());
 };
 
 gulp.task('styles', function () {
@@ -216,7 +218,7 @@ gulp.task('e2e-test-jshint', function () {
 
 gulp.task('e2e-test', ['e2e-test-jshint'], function(done) {
 	var dirs, tasks;
-	if(options.env === 'prod') {
+	if (options.env === 'prod') {
 		tasks = ['build'];
 		dirs = 'dist';
 	} else {
@@ -225,7 +227,7 @@ gulp.task('e2e-test', ['e2e-test-jshint'], function(done) {
 	}
 
 	tasks.push(function(err) {
-		if(err) {
+		if (err) {
 			return done(err.err);
 		}
 
@@ -252,7 +254,7 @@ gulp.task('test', ['jshint', 'unit-test', 'e2e-test']);
 
 gulp.task('connect', function () {
 	var server;
-	if(options.env === 'prod') {
+	if (options.env === 'prod') {
 		server = runConnectServer('dist');
 	} else {
 		server = runConnectServer(['app', '.tmp'], 'app');
@@ -261,7 +263,7 @@ gulp.task('connect', function () {
 });
 
 gulp.task('serve', function (done) {
-	if(options.env === 'prod') {
+	if (options.env === 'prod') {
 		runSequence('build', 'connect', done);
 	} else {
 		livereload.listen();
