@@ -1,4 +1,4 @@
-define(['directives/directives-module'],function (directivesModule) {
+define(['directives/directives-module'], function(directivesModule) {
 	'use strict';
 	describe('Title directive', function() {
 		var element, scope;

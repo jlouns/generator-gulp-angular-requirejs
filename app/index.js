@@ -5,7 +5,7 @@ var yosay = require('yosay');
 var slugify = require('underscore.string/slugify');
 
 module.exports = yeoman.generators.Base.extend({
-	initializing: function () {
+	initializing: function() {
 		this.pkg = require('../package.json');
 
 		this.templateAppResource = function templateAppResource(path) {
@@ -15,7 +15,7 @@ module.exports = yeoman.generators.Base.extend({
 		this.packagename = slugify(this.appname);
 	},
 
-	prompting: function () {
+	prompting: function() {
 		var done = this.async();
 
 		if (!this.options['skip-welcome-message']) {
@@ -28,7 +28,7 @@ module.exports = yeoman.generators.Base.extend({
 			);
 		}
 
-		var prompts = [ {
+		var prompts = [{
 			type: 'confirm',
 			name: 'includeModernizr',
 			message: 'Would you like to include Modernizr?',
@@ -37,9 +37,9 @@ module.exports = yeoman.generators.Base.extend({
 			name: 'githubUser',
 			message: 'Would you mind telling me the username or organization on GitHub that this app will reside in?',
 			default: 'someuser'
-		} ];
+		}];
 
-		this.prompt(prompts, function (props) {
+		this.prompt(prompts, function(props) {
 			this.includeModernizr = props.includeModernizr;
 			this.githubUser = props.githubUser;
 			done();
@@ -55,11 +55,11 @@ module.exports = yeoman.generators.Base.extend({
 			this.template('gulpfile.js');
 		},
 
-		packageJson: function () {
+		packageJson: function() {
 			this.template('_package.json', 'package.json');
 		},
 
-		bower: function () {
+		bower: function() {
 			this.template('_bower.json', 'bower.json');
 			this.copy('bowerrc', '.bowerrc');
 		},
@@ -73,8 +73,9 @@ module.exports = yeoman.generators.Base.extend({
 			this.copy('travis.yml', '.travis.yml');
 		},
 
-		projectfiles: function () {
+		projectfiles: function() {
 			this.copy('editorconfig', '.editorconfig');
+			this.copy('jscsrc', '.jscsrc');
 			this.copy('jshintrc', '.jshintrc');
 		},
 
@@ -93,14 +94,14 @@ module.exports = yeoman.generators.Base.extend({
 		}
 	},
 
-	install: function () {
+	install: function() {
 		var skipInstall = this.options['skip-install'];
 
 		this.installDependencies({
 			bower: false,
 			skipInstall: skipInstall,
 			callback: function() {
-				if(!skipInstall) {
+				if (!skipInstall) {
 					this.spawnCommand('npm', ['run', 'update-webdriver']);
 				}
 			}.bind(this)

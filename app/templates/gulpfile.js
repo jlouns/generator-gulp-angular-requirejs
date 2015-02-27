@@ -75,7 +75,7 @@ var connectServerPort = 9000,
 		}
 
 		return app.listen(connectServerPort)
-			.on('listening', function () {
+			.on('listening', function() {
 				console.log('Started connect web server on ' + connectServerAddress);
 			});
 	},
@@ -92,7 +92,7 @@ var runJshint = function(src, options) {
 		.pipe(jscs());
 };
 
-gulp.task('styles', function () {
+gulp.task('styles', function() {
 	return gulp.src('app/**/*.less')
 		.pipe(plumber())
 		.pipe(sourcemaps.init())
@@ -103,14 +103,14 @@ gulp.task('styles', function () {
 		.pipe(gulp.dest('.tmp'));
 });
 
-gulp.task('jshint', function () {
+gulp.task('jshint', function() {
 	return runJshint(['app/scripts/**/*.js', 'gulpfile.js']);
 });
 
-gulp.task('html', ['styles'], function () {
+gulp.task('html', ['styles'], function() {
 	var lazypipe = require('lazypipe');
 
-	var assets = useref.assets({searchPath: '{.tmp,app}'});
+	var assets = useref.assets({ searchPath: '{.tmp,app}' });
 
 	var jsChannel = lazypipe()
 		.pipe(requirejsOptimize, {
@@ -132,7 +132,7 @@ gulp.task('html', ['styles'], function () {
 
 	var cssChannel = lazypipe()
 		.pipe(minifyCss)
-		.pipe(replace, '../lib/bower/bootstrap/fonts/','../fonts/');
+		.pipe(replace, '../lib/bower/bootstrap/fonts/', '../fonts/');
 
 	var htmlChannel = lazypipe()
 		.pipe(minifyHtml);
@@ -150,7 +150,7 @@ gulp.task('html', ['styles'], function () {
 		.pipe(gulp.dest('dist'));
 });
 
-gulp.task('images', function () {
+gulp.task('images', function() {
 	return gulp.src('app/images/**/*')
 		.pipe(imagemin({
 			progressive: true,
@@ -159,21 +159,21 @@ gulp.task('images', function () {
 		.pipe(gulp.dest('dist/images'));
 });
 
-gulp.task('fonts', function () {
+gulp.task('fonts', function() {
 	return gulp.src(mainBowerFiles().concat('app/fonts/**/*'))
 		.pipe(filter('**/*.{eot,svg,ttf,woff,woff2}'))
 		.pipe(flatten())
 		.pipe(gulp.dest('dist/fonts'));
 });
 
-gulp.task('extras', function () {
+gulp.task('extras', function() {
 	return gulp.src(['app/*.*', '!app/*.html'], { dot: true })
 		.pipe(gulp.dest('dist'));
 });
 
 gulp.task('clean', del.bind(null, ['.tmp', 'dist']));
 
-gulp.task('unit-test-jshint', function () {
+gulp.task('unit-test-jshint', function() {
 	var options = {
 		expr: true,
 		globals: {
@@ -198,7 +198,7 @@ gulp.task('unit-test', ['unit-test-jshint'], function(done) {
 	}, done);
 });
 
-gulp.task('e2e-test-jshint', function () {
+gulp.task('e2e-test-jshint', function() {
 	var options = {
 		expr: true,
 		globals: {
@@ -252,7 +252,7 @@ gulp.task('e2e-test', ['e2e-test-jshint'], function(done) {
 
 gulp.task('test', ['jshint', 'unit-test', 'e2e-test']);
 
-gulp.task('connect', function () {
+gulp.task('connect', function() {
 	var server;
 	if (options.env === 'prod') {
 		server = runConnectServer('dist');
@@ -262,7 +262,7 @@ gulp.task('connect', function () {
 	server.on('listening', openApp);
 });
 
-gulp.task('serve', function (done) {
+gulp.task('serve', function(done) {
 	if (options.env === 'prod') {
 		runSequence('build', 'connect', done);
 	} else {
@@ -271,7 +271,7 @@ gulp.task('serve', function (done) {
 	}
 });
 
-gulp.task('watch', function () {
+gulp.task('watch', function() {
 	// watch for changes
 	gulp.watch([
 		'app/*.html',
@@ -285,14 +285,14 @@ gulp.task('watch', function () {
 	gulp.watch('app/scripts/**/*.js', ['jshint']);
 });
 
-gulp.task('build', ['jshint', 'html', 'images', 'fonts', 'extras'], function () {
-	return gulp.src('dist/**/*').pipe(size({title: 'build', gzip: true}));
+gulp.task('build', ['jshint', 'html', 'images', 'fonts', 'extras'], function() {
+	return gulp.src('dist/**/*').pipe(size({ title: 'build', gzip: true }));
 });
 
-gulp.task('ci', function (done) {
+gulp.task('ci', function(done) {
 	runSequence('test', 'build', done);
 });
 
-gulp.task('default', function (done) {
+gulp.task('default', function(done) {
 	runSequence('clean', 'build', done);
 });

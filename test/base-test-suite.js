@@ -38,6 +38,7 @@ module.exports = function(includeModernizr) {
 			'.gitattributes',
 			'.travis.yml',
 			'.editorconfig',
+			'.jscsrc',
 			'.jshintrc'
 		]);
 	});

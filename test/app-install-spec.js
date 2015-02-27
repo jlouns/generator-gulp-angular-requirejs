@@ -6,10 +6,10 @@ var assert = require('yeoman-generator').assert;
 var helpers = require('yeoman-generator').test;
 var os = require('os');
 
-describe('app:install-dependencies', function () {
+describe('app:install-dependencies', function() {
 
-	beforeEach(function (done) {
-		helpers.testDirectory(path.join(os.tmpdir(), 'generator-install-spec'), function (err) {
+	beforeEach(function(done) {
+		helpers.testDirectory(path.join(os.tmpdir(), 'generator-install-spec'), function(err) {
 			if (err) {
 				return done(err);
 			}
@@ -29,7 +29,7 @@ describe('app:install-dependencies', function () {
 
 		this.generator.installDependencies = function(opt) {
 			opt = opt || {};
-			if(opt.callback) {
+			if (opt.callback) {
 				opt.callback();
 			}
 		};

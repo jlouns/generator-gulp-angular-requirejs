@@ -1,23 +1,23 @@
 define([], function() {
 	'use strict';
-	
+
 	return {
-		
+
 		log: function() {
-			console.log.apply(console,arguments);
+			console.log.apply(console, arguments);
 		},
-		
+
 		info: function() {
-			console.info.apply(console,arguments);
+			console.info.apply(console, arguments);
 		},
-		
+
 		warn: function() {
-			console.warn.apply(console,arguments);
+			console.warn.apply(console, arguments);
 		},
-		
+
 		error: function() {
-			console.error.apply(console,arguments);
+			console.error.apply(console, arguments);
 		}
-		
+
 	};
 });
