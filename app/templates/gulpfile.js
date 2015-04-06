@@ -2,12 +2,15 @@
 
 var gulp = require('gulp');
 
+var browserSync = require('browser-sync');
+var reload = browserSync.reload;
+
 var karma = require('karma').server;
 
 var minimist = require('minimist');
 
 // load plugins
-var autoprefixer = require('gulp-autoprefixer'),
+var autoprefixer = require('autoprefixer-core'),
 	del = require('del'),
 	flatten = require('gulp-flatten'),
 	filter = require('gulp-filter'),
@@ -17,10 +20,10 @@ var autoprefixer = require('gulp-autoprefixer'),
 	jscs = require('gulp-jscs'),
 	jshint = require('gulp-jshint'),
 	less = require('gulp-less'),
-	livereload = require('gulp-livereload'),
 	mainBowerFiles = require('main-bower-files'),
 	minifyCss = require('gulp-minify-css'),
 	plumber = require('gulp-plumber'),
+	postcss = require('gulp-postcss'),
 	protractor = require('gulp-protractor').protractor,
 	requirejsOptimize = require('gulp-requirejs-optimize'),
 	replace = require('gulp-replace'),
@@ -40,55 +43,39 @@ var options = minimist(process.argv.slice(2), {
 	}
 });
 
-// connect server utils
-var connectServerPort = 9000,
-	connectServerAddress = 'http://localhost:' + connectServerPort,
-	runConnectServer = function(dirs, indexes) {
-		indexes = indexes || [];
-
-		if (typeof dirs === 'string') {
-			dirs = [dirs];
-		}
-
-		if (typeof indexes === 'string') {
-			indexes = [indexes];
-		}
-
-		var connect = require('connect');
-
-		var app = connect();
-
-		if (livereload.server) {
-			app.use(require('connect-livereload')({ port: 35729 }));
-		}
-
-		var serveStatic = require('serve-static');
-		dirs.forEach(function(dir) {
-			app.use(serveStatic(dir));
-		});
-
-		if (indexes.length > 0) {
-			var serveIndex = require('serve-index');
-			indexes.forEach(function(index) {
-				app.use(serveIndex(index));
-			});
-		}
-
-		return app.listen(connectServerPort)
-			.on('listening', function() {
-				console.log('Started connect web server on ' + connectServerAddress);
-			});
-	},
-	openApp = function() {
-		require('opn')(connectServerAddress);
+// get build options for the environment
+var buildOptions;
+if (options.env === 'prod') {
+	buildOptions = {
+		tasks: ['build'],
+		dirs: ['dist']
 	};
+} else {
+	buildOptions = {
+		tasks: ['styles'],
+		dirs: ['app', '.tmp']
+	};
+}
+
+// local server utils
+var runServer = function(open, callback) {
+	browserSync({
+		notify: false,
+		port: 9000,
+		open: open,
+		server: {
+			baseDir: buildOptions.dirs
+		}
+	}, callback);
+};
 
 // utils for jshint
 var runJshint = function(src, options) {
 	return gulp.src(src)
+		.pipe(reload({ stream: true, once: true }))
 		.pipe(jshint(options))
 		.pipe(jshint.reporter('jshint-stylish'))
-		.pipe(jshint.reporter('fail'))
+		.pipe(gulpif(!browserSync.active, jshint.reporter('fail')))
 		.pipe(jscs());
 };
 
@@ -98,9 +85,12 @@ gulp.task('styles', function() {
 		.pipe(sourcemaps.init())
 		.pipe(filter('styles/main.less'))
 		.pipe(less())
-		.pipe(autoprefixer({ browsers: ['last 1 version'] }))
+		.pipe(postcss([
+			autoprefixer({ browsers: ['last 1 version'] })
+		]))
 		.pipe(sourcemaps.write('.'))
-		.pipe(gulp.dest('.tmp'));
+		.pipe(gulp.dest('.tmp'))
+		.pipe(reload({ stream: true }));
 });
 
 gulp.task('jshint', function() {
@@ -217,34 +207,32 @@ gulp.task('e2e-test-jshint', function() {
 });
 
 gulp.task('e2e-test', ['e2e-test-jshint'], function(done) {
-	var dirs, tasks;
-	if (options.env === 'prod') {
-		tasks = ['build'];
-		dirs = 'dist';
-	} else {
-		tasks = ['styles'];
-		dirs = ['app', '.tmp'];
-	}
+
+	var tasks = buildOptions.tasks.slice(0);
 
 	tasks.push(function(err) {
 		if (err) {
 			return done(err.err);
 		}
 
-		var server = runConnectServer(dirs);
+		runServer(false, function(err) {
+			if (err) {
+				return done(err.err);
+			}
 
-		gulp.src(['test/e2e/**/*.js'])
-			.pipe(protractor({
-				configFile: 'test/protractor.conf'
-			}))
-			.on('error', function(e) {
-				server.close();
-				return done(e);
-			})
-			.on('end', function() {
-				server.close();
-				return done();
-			});
+			gulp.src(['test/e2e/**/*.js'])
+				.pipe(protractor({
+					configFile: 'test/protractor.conf'
+				}))
+				.on('error', function(e) {
+					browserSync.exit();
+					return done(e);
+				})
+				.on('end', function() {
+					browserSync.exit();
+					return done();
+				});
+		});
 	});
 
 	runSequence.apply(null, tasks);
@@ -252,23 +240,22 @@ gulp.task('e2e-test', ['e2e-test-jshint'], function(done) {
 
 gulp.task('test', ['jshint', 'unit-test', 'e2e-test']);
 
-gulp.task('connect', function() {
-	var server;
-	if (options.env === 'prod') {
-		server = runConnectServer('dist');
-	} else {
-		server = runConnectServer(['app', '.tmp'], 'app');
+gulp.task('serve', function(done) {
+
+	var tasks = buildOptions.tasks.slice(0);
+	tasks.push('run');
+
+	if (options.env !== 'prod') {
+		tasks.push('watch');
 	}
-	server.on('listening', openApp);
+
+	tasks.push(done);
+
+	runSequence.apply(null, tasks);
 });
 
-gulp.task('serve', function(done) {
-	if (options.env === 'prod') {
-		runSequence('build', 'connect', done);
-	} else {
-		livereload.listen();
-		runSequence('styles', 'connect', 'watch', done);
-	}
+gulp.task('run', function(done) {
+	runServer(true, done);
 });
 
 gulp.task('watch', function() {
@@ -276,10 +263,9 @@ gulp.task('watch', function() {
 	gulp.watch([
 		'app/*.html',
 		'app/partials/**/*.html',
-		'.tmp/styles/**/*.css',
 		'app/scripts/**/*.js',
 		'app/images/**/*'
-	]).on('change', livereload.changed);
+	]).on('change', reload);
 
 	gulp.watch('app/styles/**/*.less', ['styles']);
 	gulp.watch('app/scripts/**/*.js', ['jshint']);

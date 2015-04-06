@@ -2,16 +2,16 @@
   "name": "<%= packagename %>",
   "version": "0.0.0",
   "dependencies": {
-    "almond": "~0.3.0",
+    "almond": "~0.3.1",
     "angular": "~1.4.0",
     "angular-route": "~1.4.0",
-    "bootstrap": "~3.3.0",
-    "lodash": "~3.3.0",<% if (includeModernizr) { %>
+    "bootstrap": "~3.3.4",
+    "lodash": "~3.6.0",<% if (includeModernizr) { %>
     "modernizr": "~2.8.3", <% } %>
-    "requirejs-text": "~2.0.13"
+    "requirejs-text": "~2.0.14"
   },
   "devDependencies": {
-    "requirejs": "~2.1.16",
+    "requirejs": "~2.1.17",
     "angular-mocks": "~1.4.0"
   }
 }
