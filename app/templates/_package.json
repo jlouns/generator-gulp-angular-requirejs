@@ -24,7 +24,7 @@
     "gulp-minify-html": "^1.0.2",
     "gulp-plumber": "^1.0.0",
     "gulp-postcss": "^5.0.0",
-    "gulp-protractor": "0.0.12",
+    "gulp-protractor": "git@github.com:szimek/gulp-protractor.git",
     "gulp-replace": "^0.5.3",
     "gulp-requirejs-optimize": "^0.1.2",
     "gulp-rev": "^3.0.1",
@@ -44,6 +44,7 @@
     "main-bower-files": "^2.6.2",
     "minimist": "^1.1.1",
     "protractor": "^2.0.0",
+    "requirejs": "^2.1.17",
     "run-sequence": "^1.0.2"
   },
   "scripts": {
