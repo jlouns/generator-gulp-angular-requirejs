@@ -1,6 +1,8 @@
 define(function(require) {
 	'use strict';
 
+	require('angular.mocks');
+
 	var demoModule = require('demo/demo-module');
 
 	describe('Title directive', function() {
