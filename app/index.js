@@ -89,7 +89,7 @@ module.exports = yeoman.generators.Base.extend({
 			this.directory('test');
 			this.templateAppResource('_test/e2e/demo-spec.js');
 			this.templateAppResource('_test/e2e/main-spec.js');
-			this.templateAppResource('_test/unit/directives/app-title-spec.js');
+			this.templateAppResource('_test/unit/demo/app-title-spec.js');
 			this.templateAppResource('_test/unit/app-spec.js');
 		}
 	},

@@ -48,10 +48,11 @@ module.exports = function(includeModernizr) {
 			'app/images/loader.gif',
 			'app/scripts/config/dev-config.js',
 			'app/scripts/config/prod-config.js',
-			'app/scripts/directives/directives-module.js',
-			'app/scripts/directives/app-title.js',
+			'app/scripts/demo/app-title-directive.js',
+			'app/scripts/demo/demo-module.js',
+			'app/scripts/demo/demo-route.js',
+			'app/scripts/demo/demo-route-config.js',
 			'app/scripts/logging/console-logger.js',
-			'app/scripts/routes/demo-route.js',
 			'app/scripts/routes/route-config.js',
 			'app/scripts/app.js',
 			'app/scripts/main.js'
@@ -74,7 +75,7 @@ module.exports = function(includeModernizr) {
 		assert.file([
 			'test/e2e/demo-spec.js',
 			'test/e2e/main-spec.js',
-			'test/unit/directives/app-title-spec.js',
+			'test/unit/demo/app-title-spec.js',
 			'test/unit/app-spec.js'
 		]);
 	});
@@ -103,7 +104,7 @@ module.exports = function(includeModernizr) {
 			'app/index.html',
 			'test/e2e/demo-spec.js',
 			'test/e2e/main-spec.js',
-			'test/unit/directives/app-title-spec.js',
+			'test/unit/demo/app-title-spec.js',
 			'test/unit/app-spec.js'
 		], new RegExp(appname));
 	});
