@@ -1,18 +1,15 @@
-define([
-	'angular',
-	'directives/directives-module',
-	'routes/route-config',
-	'angular.route'
-], function(
-	angular,
-	directivesModule,
-	routeConfig
-) {
+define(function(require) {
 	'use strict';
+
+	var angular = require('angular'),
+		demoModule = require('demo/demo-module'),
+		routeConfig = require('routes/route-config');
+
+	require('angular.route');
 
 	var app = angular.module('<%= appname %>', [
 		'ngRoute',
-		directivesModule.name
+		demoModule.name
 	]);
 
 	app.config(routeConfig);

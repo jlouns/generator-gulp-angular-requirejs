@@ -1,9 +1,12 @@
-define(['directives/directives-module'], function(directivesModule) {
+define(function(require) {
 	'use strict';
+
+	var demoModule = require('demo/demo-module');
+
 	describe('Title directive', function() {
 		var element, scope;
 
-		beforeEach(module(directivesModule.name));
+		beforeEach(module(demoModule.name));
 
 		beforeEach(inject(function($rootScope, $compile) {
 			scope = $rootScope.$new();
